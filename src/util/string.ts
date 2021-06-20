@@ -4,24 +4,23 @@
  * @description String
  */
 
-export enum CSV_DATE_CASE_METHOD {
-
-    MILLISECONDS_SINCE_ELAPSED = "MILLISECONDS_SINCE_ELAPSED",
-}
-
 export type CSVCellToStringOptions = {
 
     readonly nullReplacement: string;
-    readonly dateCastMethod: CSV_DATE_CASE_METHOD;
+
+    readonly dateCaster: (target: Date) => string;
+    readonly booleanCaster: (target: boolean) => string;
 };
 
-const defaultCellToStringOptions: CSVCellToStringOptions = {
+export const DefaultCSVCellToStringOptions: CSVCellToStringOptions = {
 
     nullReplacement: 'null',
-    dateCastMethod: CSV_DATE_CASE_METHOD.MILLISECONDS_SINCE_ELAPSED,
+
+    dateCaster: (target: Date) => target.getTime().toString(),
+    booleanCaster: (target: boolean) => target ? "True" : "False",
 };
 
-export const csvCellToString = (cell: any, options: CSVCellToStringOptions = defaultCellToStringOptions): string => {
+export const csvCellToString = (cell: any, options: CSVCellToStringOptions = DefaultCSVCellToStringOptions): string => {
 
     if (typeof cell === 'undefined') {
         return "";
@@ -35,13 +34,12 @@ export const csvCellToString = (cell: any, options: CSVCellToStringOptions = def
         return cell;
     }
 
+    if (typeof cell === 'boolean') {
+        return options.booleanCaster(cell);
+    }
+
     if (cell instanceof Date) {
-        switch (options.dateCastMethod) {
-            case CSV_DATE_CASE_METHOD.MILLISECONDS_SINCE_ELAPSED:
-                return cell.getTime().toString();
-            default:
-                return cell.getTime().toString();
-        }
+        return options.dateCaster(cell);
     }
 
     if (cell.toString) {

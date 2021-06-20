@@ -4,7 +4,8 @@
  * @description Base
  */
 
-import { DEFAULT_DELIMITER, DEFAULT_EMPTY_FILE, DEFAULT_NEW_LINER } from "../declare";
+import { DEFAULT_DELIMITER, DEFAULT_EMPTY_FILE, DEFAULT_NEW_LINER, Writeable } from "../declare";
+import { CSVCellToStringOptions, DefaultCSVCellToStringOptions } from "../util/string";
 
 export class CSVBaseStringifier<T> {
 
@@ -13,6 +14,11 @@ export class CSVBaseStringifier<T> {
     protected _delimiter: string;
     protected _newLiner: string;
     protected _emptyFile: string;
+
+    protected _nullReplacement?: string;
+
+    protected _dateCaster?: (target: Date) => string;
+    protected _booleanCaster?: (target: boolean) => string;
 
     protected constructor(target: T) {
 
@@ -39,5 +45,40 @@ export class CSVBaseStringifier<T> {
 
         this._emptyFile = emptyFile;
         return this;
+    }
+
+    public setNullReplacement(nullReplacement: string): this {
+
+        this._nullReplacement = nullReplacement;
+        return this;
+    }
+
+    public setDateCaster(dateCaster: (target: Date) => string): this {
+
+        this._dateCaster = dateCaster;
+        return this;
+    }
+
+    public setBooleanCaster(booleanCaster: (target: boolean) => string): this {
+
+        this._booleanCaster = booleanCaster;
+        return this;
+    }
+
+    protected _getCSVCellToStringOptions(): CSVCellToStringOptions {
+
+        const config: Writeable<CSVCellToStringOptions> = DefaultCSVCellToStringOptions;
+
+        if (typeof this._nullReplacement !== 'undefined') {
+            config.nullReplacement = this._nullReplacement;
+        }
+        if (typeof this._dateCaster !== 'undefined') {
+            config.dateCaster = this._dateCaster;
+        }
+        if (typeof this._booleanCaster !== 'undefined') {
+            config.booleanCaster = this._booleanCaster;
+        }
+
+        return config;
     }
 }

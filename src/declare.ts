@@ -4,6 +4,10 @@
  * @description Declare
  */
 
+export type Writeable<T> = {
+    -readonly [P in keyof T]: T[P];
+};
+
 export type CSVRecordObject<Element extends CSVRowObject = CSVRowObject> = Element[];
 export type CSVRowObject = Record<string | number, string | number>;
 

@@ -5,7 +5,7 @@
  */
 
 import { CSVRecordObject, CSVRowObject } from "../declare";
-import { csvCellToString } from "../util/string";
+import { csvCellToString, CSVCellToStringOptions } from "../util/string";
 import { CSVBaseStringifier } from "./base";
 
 export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> extends CSVBaseStringifier<CSVRecordObject<Row>> {
@@ -32,10 +32,11 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
 
         const keys: string[] = Object.keys(this._target[0]);
 
+        const options: CSVCellToStringOptions = this._getCSVCellToStringOptions();
         const rows: string[] = this._target.map((row: Row) => {
 
             return keys.map((key: string) => {
-                return csvCellToString(row[key]);
+                return csvCellToString(row[key], options);
             }).join(this._delimiter);
         });
         return [keys, ...rows].join(this._newLiner);
