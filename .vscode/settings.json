@@ -1,0 +1,22 @@
+{
+    "cSpell.words": [
+        "Encryptable",
+        "RMRF",
+        "WMXPY",
+        "clazz",
+        "codecov",
+        "deserialize",
+        "deserialized",
+        "ifeq",
+        "mocharc",
+        "setx",
+        "splited",
+        "sudoo",
+        "triforce",
+        "tshook"
+    ],
+    "eslint.options": {
+        "configFile": "./typescript/.eslintrc.json"
+    },
+    "typescript.tsdk": "node_modules\\typescript\\lib"
+}
