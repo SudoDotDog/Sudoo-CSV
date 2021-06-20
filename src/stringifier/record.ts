@@ -5,7 +5,7 @@
  */
 
 import { CSVRecordObject, CSVRowObject } from "../declare";
-import { csvCellToString, CSVCellToStringOptions } from "../util/string";
+import { CSVCellFormatter } from "../util/cell-formatter";
 import { CSVBaseStringifier } from "./base";
 
 export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> extends CSVBaseStringifier<CSVRecordObject<Row>> {
@@ -32,13 +32,17 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
 
         const keys: string[] = Object.keys(this._target[0]);
 
-        const options: CSVCellToStringOptions = this._getCSVCellToStringOptions();
+        const formatter: CSVCellFormatter = this._getCellFormatter();
         const rows: string[] = this._target.map((row: Row) => {
 
             return keys.map((key: string) => {
-                return csvCellToString(row[key], options);
+                return formatter.format(row[key]);
             }).join(this._delimiter);
         });
+
+        if (!this._includesHeader) {
+            return rows.join(this._newLiner);
+        }
 
         const header: string = keys.join(this._delimiter);
         return [header, ...rows].join(this._newLiner);

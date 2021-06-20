@@ -5,7 +5,7 @@
  */
 
 import { CSVListObject, CSVRowList } from "../declare";
-import { csvCellToString, CSVCellToStringOptions } from "../util/string";
+import { CSVCellFormatter } from "../util/cell-formatter";
 import { CSVBaseStringifier } from "./base";
 
 export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSVBaseStringifier<CSVListObject<Row>> {
@@ -34,13 +34,17 @@ export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSV
             return this._emptyFile;
         }
 
-        const options: CSVCellToStringOptions = this._getCSVCellToStringOptions();
+        const formatter: CSVCellFormatter = this._getCellFormatter();
         const rows: string[] = this._target.map((row: Row) => {
 
             return row.map((cell: Row[number]) => {
-                return csvCellToString(cell, options);
+                return formatter.format(cell);
             }).join(this._delimiter);
         });
+
+        if (!this._includesHeader) {
+            return rows.join(this._newLiner);
+        }
 
         const header: string = this._headers.join(this._delimiter);
         return [header, ...rows].join(this._newLiner);
