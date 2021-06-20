@@ -5,5 +5,6 @@
  */
 
 export * from "./declare";
+export * from "./string";
 export * from "./stringifier";
 

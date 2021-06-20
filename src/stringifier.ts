@@ -5,6 +5,7 @@
  */
 
 import { CSVRowObject, CSVTableArray } from "./declare";
+import { csvCellToString } from "./string";
 
 export class CSVStringifier<Row extends CSVRowObject = CSVRowObject> {
 
@@ -35,7 +36,7 @@ export class CSVStringifier<Row extends CSVRowObject = CSVRowObject> {
         const rows: string[] = this._target.map((row: Row) => {
 
             return keys.map((key: string) => {
-                return row[key].toString();
+                return csvCellToString(row[key]);
             }).join(',');
         });
         return [keys, ...rows].join('\n');
