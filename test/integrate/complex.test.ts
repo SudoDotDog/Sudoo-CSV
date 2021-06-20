@@ -15,7 +15,7 @@ describe('Given (Complex) Integrate Scenario', (): void => {
     const chance: Chance.Chance = new Chance('integrate-complex');
 
     /* eslint-disable @typescript-eslint/no-magic-numbers */
-    it.only('should be able to stringify cars csv', (): void => {
+    it('should be able to stringify cars csv', (): void => {
 
         const example = [{
             date_time: new Date(Date.UTC(1997, 1, 1, 0, 0, 1)),
