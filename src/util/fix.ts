@@ -16,7 +16,8 @@ export const fixCSVCellString = (cell: string, options: FixCSVStringOptions): st
     let pipeCell: string = cell;
 
     if (pipeCell.includes("\"")) {
-        pipeCell = pipeCell.replaceAll("\"", "\"\"");
+
+        pipeCell = pipeCell.replace(/"/g, "\"\"");
         shouldQuote = true;
     }
 
@@ -38,6 +39,7 @@ export const fixCSVCellString = (cell: string, options: FixCSVStringOptions): st
     }
 
     if (shouldQuote) {
+
         return `"${pipeCell}"`;
     }
     return pipeCell;
