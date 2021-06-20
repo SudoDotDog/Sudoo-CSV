@@ -11,7 +11,7 @@ export type Writeable<T> = {
 export type CSVRecordObject<Element extends CSVRowObject = CSVRowObject> = Element[];
 export type CSVRowObject = Record<string | number, string | number>;
 
-export type CSVListObject = CSVRowList[];
+export type CSVListObject<Element extends CSVRowList = CSVRowList> = Element[];
 export type CSVRowList = Array<string | number>;
 
 export const DEFAULT_DELIMITER = ",";
