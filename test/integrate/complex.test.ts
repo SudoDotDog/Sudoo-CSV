@@ -46,6 +46,7 @@ describe('Given (Complex) Integrate Scenario', (): void => {
         const stringifier: CSVRecordStringifier = CSVRecordStringifier.of(example);
 
         stringifier.setIncludesHeader(false);
+        stringifier.setNullReplacement('NULL');
         stringifier.setDateCaster((target: Date) => {
             return `${target.getUTCFullYear()}-${target.getUTCMonth()}-${target.getUTCDate()} ${target.getUTCHours()}:${target.getUTCMinutes()}:${target.getUTCSeconds()}`;
         });
@@ -56,7 +57,7 @@ describe('Given (Complex) Integrate Scenario', (): void => {
             [
                 `1997-1-1 0:0:1,First,E100,"ac, abs, car",2000`,
                 `1999-1-1 0:0:1,"Hello ""HM Edition""",E100,\t,4500`,
-                `1999-1-1 0:0:1,Second,,null,5000`,
+                `1999-1-1 0:0:1,Second,,NULL,5000`,
                 `1996-1-1 0:0:1,Third,The nice car,"Sell now!\nair, ac, abs,",5000`,
             ].join('\r\n')
         );
