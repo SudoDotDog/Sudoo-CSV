@@ -27,7 +27,7 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
         }
 
         if (this._target.length <= 0) {
-            return "";
+            return this._emptyFile;
         }
 
         const keys: string[] = Object.keys(this._target[0]);
@@ -36,8 +36,8 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
 
             return keys.map((key: string) => {
                 return csvCellToString(row[key]);
-            }).join(',');
+            }).join(this._delimiter);
         });
-        return [keys, ...rows].join('\n');
+        return [keys, ...rows].join(this._newLiner);
     }
 }
