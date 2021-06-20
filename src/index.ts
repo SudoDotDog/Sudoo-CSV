@@ -5,6 +5,6 @@
  */
 
 export * from "./declare";
-export * from "./string";
-export * from "./record-stringifier";
+export * from "./stringifier/record";
+export * from "./util/string";
 

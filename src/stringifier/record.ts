@@ -1,11 +1,11 @@
 /**
  * @author WMXPY
- * @namespace CSV
- * @description Record Stringifier
+ * @namespace CSV_Stringifier
+ * @description Record
  */
 
-import { CSVRowObject, CSVRecordObject } from "./declare";
-import { csvCellToString } from "./string";
+import { CSVRecordObject, CSVRowObject } from "../declare";
+import { csvCellToString } from "../util/string";
 
 export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> {
 

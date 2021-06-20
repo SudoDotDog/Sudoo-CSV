@@ -1,6 +1,6 @@
 /**
  * @author WMXPY
- * @namespace CSV
+ * @namespace CSV_Util
  * @description String
  */
 
@@ -29,6 +29,10 @@ export const csvCellToString = (cell: any, options: CSVCellToStringOptions = def
 
     if (cell === null) {
         return options.nullReplacement;
+    }
+
+    if (typeof cell === 'string') {
+        return cell;
     }
 
     if (cell instanceof Date) {

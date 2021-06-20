@@ -1,17 +1,17 @@
 /**
  * @author WMXPY
- * @namespace CSV
- * @description Stringifier
+ * @namespace CSV_Stringifier
+ * @description Record
  * @package Unit Test
  */
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { CSVRecordStringifier } from '../../src';
+import { CSVRecordStringifier } from '../../../src';
 
 describe('Given {CSVStringifier} Class', (): void => {
 
-    const chance: Chance.Chance = new Chance('csv-record-stringifier');
+    const chance: Chance.Chance = new Chance('csv-stringifier-record');
 
     it('should be able to construct', (): void => {
 
