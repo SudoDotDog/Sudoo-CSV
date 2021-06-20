@@ -32,11 +32,11 @@ describe('Given {CSVRecordStringifier} Class', (): void => {
         const result: string = stringifier.stringify();
 
         expect(result).to.be.equal(
-            ["a,b", "1,first", "2,second"].join('\n')
+            ["a,b", "1,first", "2,second"].join('\r\n')
         );
     });
 
-    it('should be able to format object list with delimiter', (): void => {
+    it('should be able to format object list with custom delimiter', (): void => {
 
         const objectList = [
             { a: 1, b: "first" },
@@ -49,7 +49,24 @@ describe('Given {CSVRecordStringifier} Class', (): void => {
         const result: string = stringifier.stringify();
 
         expect(result).to.be.equal(
-            ["a:b", "1:first", "2:second"].join('\n')
+            ["a:b", "1:first", "2:second"].join('\r\n')
+        );
+    });
+
+    it('should be able to format object list with new liner', (): void => {
+
+        const objectList = [
+            { a: 1, b: "first" },
+            { a: 2, b: "second" },
+        ];
+
+        const stringifier: CSVRecordStringifier = CSVRecordStringifier.of(objectList);
+        stringifier.wrapWith(':');
+
+        const result: string = stringifier.stringify();
+
+        expect(result).to.be.equal(
+            ["a,b", "1,first", "2,second"].join(':')
         );
     });
 });

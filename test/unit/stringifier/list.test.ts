@@ -32,11 +32,11 @@ describe('Given {CSVListStringifier} Class', (): void => {
         const result: string = stringifier.stringify();
 
         expect(result).to.be.equal(
-            ["a,b", "1,first", "2,second"].join('\n')
+            ["a,b", "1,first", "2,second"].join('\r\n')
         );
     });
 
-    it('should be able to format object list with delimiter', (): void => {
+    it('should be able to format object list with custom delimiter', (): void => {
 
         const objectList = [
             [1, "first"],
@@ -49,7 +49,24 @@ describe('Given {CSVListStringifier} Class', (): void => {
         const result: string = stringifier.stringify();
 
         expect(result).to.be.equal(
-            ["a:b", "1:first", "2:second"].join('\n')
+            ["a:b", "1:first", "2:second"].join('\r\n')
+        );
+    });
+
+    it('should be able to format object list with custom new liner', (): void => {
+
+        const objectList = [
+            [1, "first"],
+            [2, "second"],
+        ];
+
+        const stringifier: CSVListStringifier = CSVListStringifier.of(objectList, ["a", "b"]);
+        stringifier.wrapWith(':');
+
+        const result: string = stringifier.stringify();
+
+        expect(result).to.be.equal(
+            ["a,b", "1,first", "2,second"].join(':')
         );
     });
 });
