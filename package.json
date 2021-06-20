@@ -1,0 +1,35 @@
+{
+	"name": "@sudoo/csv",
+	"version": "1.0.0",
+	"description": "CSV Utils for JS",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SudoDotDog/Sudoo-CSV.git"
+	},
+	"author": "WMXPY",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/SudoDotDog/Sudoo-CSV/issues"
+	},
+	"homepage": "https://github.com/SudoDotDog/Sudoo-CSV#readme",
+	"devDependencies": {
+		"@sudoo/io": "^1.8.0",
+		"@sudoo/triforce": "^2.9.27"
+	},
+	"nyc": {
+		"extension": [
+			".ts"
+		],
+		"include": [
+			"script/**/*.ts",
+			"src/**/*.ts"
+		],
+		"instrument": true,
+		"reporter": [
+			"json",
+			"text-summary"
+		],
+		"report-dir": "coverage",
+		"sourceMap": true
+	}
+}
