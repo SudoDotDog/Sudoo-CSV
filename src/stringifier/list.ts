@@ -41,6 +41,8 @@ export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSV
                 return csvCellToString(cell, options);
             }).join(this._delimiter);
         });
-        return [this._headers, ...rows].join(this._newLiner);
+
+        const header: string = this._headers.join(this._delimiter);
+        return [header, ...rows].join(this._newLiner);
     }
 }

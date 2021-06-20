@@ -39,6 +39,8 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
                 return csvCellToString(row[key], options);
             }).join(this._delimiter);
         });
-        return [keys, ...rows].join(this._newLiner);
+
+        const header: string = keys.join(this._delimiter);
+        return [header, ...rows].join(this._newLiner);
     }
 }
