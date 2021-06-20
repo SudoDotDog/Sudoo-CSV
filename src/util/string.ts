@@ -38,6 +38,13 @@ export const csvCellToString = (cell: any, options: CSVCellToStringOptions = Def
         return options.booleanCaster(cell);
     }
 
+    if (typeof cell === 'symbol') {
+        if (cell.description) {
+            return cell.description;
+        }
+        return cell.toString();
+    }
+
     if (cell instanceof Date) {
         return options.dateCaster(cell);
     }

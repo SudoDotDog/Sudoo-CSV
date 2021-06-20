@@ -20,9 +20,21 @@ export const fixCSVCellString = (cell: string, options: FixCSVStringOptions): st
         shouldQuote = true;
     }
 
-    if (pipeCell.includes(options.delimiter)
-        || pipeCell.includes(options.newLiner)) {
-        shouldQuote = true;
+    if (!shouldQuote) {
+
+        if (pipeCell.includes(options.delimiter)) {
+            shouldQuote = true;
+        }
+    }
+
+    if (!shouldQuote) {
+
+        const newLinerElements: string[] = options.newLiner.split('');
+        for (const newLinerElement of newLinerElements) {
+            if (pipeCell.includes(newLinerElement)) {
+                shouldQuote = true;
+            }
+        }
     }
 
     if (shouldQuote) {

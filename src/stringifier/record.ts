@@ -44,7 +44,9 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
             return rows.join(this._newLiner);
         }
 
-        const header: string = keys.join(this._delimiter);
+        const header: string = keys.map((currentHeader: any) => {
+            return formatter.format(currentHeader);
+        }).join(this._delimiter);
         return [header, ...rows].join(this._newLiner);
     }
 }

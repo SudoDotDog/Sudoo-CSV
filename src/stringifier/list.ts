@@ -46,7 +46,9 @@ export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSV
             return rows.join(this._newLiner);
         }
 
-        const header: string = this._headers.join(this._delimiter);
+        const header: string = this._headers.map((currentHeader: any) => {
+            return formatter.format(currentHeader);
+        }).join(this._delimiter);
         return [header, ...rows].join(this._newLiner);
     }
 }
