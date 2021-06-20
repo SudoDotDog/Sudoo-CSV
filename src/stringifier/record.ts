@@ -6,19 +6,18 @@
 
 import { CSVRecordObject, CSVRowObject } from "../declare";
 import { csvCellToString } from "../util/string";
+import { CSVBaseStringifier } from "./base";
 
-export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> {
+export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> extends CSVBaseStringifier<CSVRecordObject<Row>> {
 
     public static of<Row extends CSVRowObject = CSVRowObject>(target: CSVRecordObject<Row>): CSVRecordStringifier {
 
         return new CSVRecordStringifier<Row>(target);
     }
 
-    private readonly _target: CSVRecordObject<Row>;
-
     private constructor(target: CSVRecordObject<Row>) {
 
-        this._target = target;
+        super(target);
     }
 
     public stringify(): string {
