@@ -6,5 +6,5 @@
 
 export * from "./declare";
 export * from "./string";
-export * from "./stringifier";
+export * from "./record-stringifier";
 

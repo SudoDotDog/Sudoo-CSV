@@ -1,22 +1,22 @@
 /**
  * @author WMXPY
  * @namespace CSV
- * @description Stringifier
+ * @description Record Stringifier
  */
 
-import { CSVRowObject, CSVTableArray } from "./declare";
+import { CSVRowObject, CSVRecordObject } from "./declare";
 import { csvCellToString } from "./string";
 
-export class CSVStringifier<Row extends CSVRowObject = CSVRowObject> {
+export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> {
 
-    public static of<Row extends CSVRowObject = CSVRowObject>(target: CSVTableArray<Row>): CSVStringifier {
+    public static of<Row extends CSVRowObject = CSVRowObject>(target: CSVRecordObject<Row>): CSVRecordStringifier {
 
-        return new CSVStringifier<Row>(target);
+        return new CSVRecordStringifier<Row>(target);
     }
 
-    private readonly _target: CSVTableArray<Row>;
+    private readonly _target: CSVRecordObject<Row>;
 
-    private constructor(target: CSVTableArray<Row>) {
+    private constructor(target: CSVRecordObject<Row>) {
 
         this._target = target;
     }
