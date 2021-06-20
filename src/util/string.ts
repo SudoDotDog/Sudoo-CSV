@@ -34,6 +34,10 @@ export const csvCellToString = (cell: any, options: CSVCellToStringOptions = Def
         return cell;
     }
 
+    if (typeof cell === 'number') {
+        return cell.toString();
+    }
+
     if (typeof cell === 'boolean') {
         return options.booleanCaster(cell);
     }

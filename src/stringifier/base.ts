@@ -91,7 +91,9 @@ export abstract class CSVBaseStringifier<T> {
 
     protected _getCSVCellToStringOptions(): CSVCellToStringOptions {
 
-        const config: Writeable<CSVCellToStringOptions> = DefaultCSVCellToStringOptions;
+        const config: Writeable<CSVCellToStringOptions> = {
+            ...DefaultCSVCellToStringOptions,
+        };
 
         if (typeof this._nullReplacement !== 'undefined') {
             config.nullReplacement = this._nullReplacement;

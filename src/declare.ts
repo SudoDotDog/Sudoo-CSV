@@ -9,7 +9,7 @@ export type Writeable<T> = {
 };
 
 export type CSVHeaderType = string | number | symbol;
-export type CSVCellType = string | number | boolean | symbol | undefined | null;
+export type CSVCellType = string | number | boolean | symbol | Date | undefined | null;
 
 export type CSVRecordObject<Element extends CSVRowObject = CSVRowObject> = Element[];
 export type CSVRowObject = Record<CSVHeaderType, CSVCellType>;
