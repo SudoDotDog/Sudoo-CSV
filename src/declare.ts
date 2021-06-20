@@ -4,4 +4,5 @@
  * @description Declare
  */
 
-export type BaseCSVObject = Array<Record<string | number, string | number>>;
+export type CSVTableArray<Element extends CSVRowObject = CSVRowObject> = Element[];
+export type CSVRowObject = Record<string | number, string | number>;

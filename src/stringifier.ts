@@ -4,19 +4,40 @@
  * @description Stringifier
  */
 
-import { BaseCSVObject } from "./declare";
+import { CSVRowObject, CSVTableArray } from "./declare";
 
-export class CSVStringifier<T extends BaseCSVObject = BaseCSVObject> {
+export class CSVStringifier<Row extends CSVRowObject = CSVRowObject> {
 
-    public static of<T extends BaseCSVObject = BaseCSVObject>(target: T): CSVStringifier {
+    public static of<Row extends CSVRowObject = CSVRowObject>(target: CSVTableArray<Row>): CSVStringifier {
 
-        return new CSVStringifier<T>(target);
+        return new CSVStringifier<Row>(target);
     }
 
-    private readonly _target: T;
+    private readonly _target: CSVTableArray<Row>;
 
-    private constructor(target: T) {
+    private constructor(target: CSVTableArray<Row>) {
 
         this._target = target;
+    }
+
+    public stringify(): string {
+
+        if (!Array.isArray(this._target)) {
+            throw new Error("[Sudoo-CSV] Target is not an array");
+        }
+
+        if (this._target.length <= 0) {
+            return "";
+        }
+
+        const keys: string[] = Object.keys(this._target[0]);
+
+        const rows: string[] = this._target.map((row: Row) => {
+
+            return keys.map((key: string) => {
+                return row[key].toString();
+            }).join(',');
+        });
+        return [keys, ...rows].join('\n');
     }
 }
