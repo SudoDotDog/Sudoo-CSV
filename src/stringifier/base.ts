@@ -7,7 +7,7 @@
 import { DEFAULT_DELIMITER, DEFAULT_EMPTY_FILE, DEFAULT_NEW_LINER, Writeable } from "../declare";
 import { CSVCellToStringOptions, DefaultCSVCellToStringOptions } from "../util/string";
 
-export class CSVBaseStringifier<T> {
+export abstract class CSVBaseStringifier<T> {
 
     protected readonly _target: T;
 
