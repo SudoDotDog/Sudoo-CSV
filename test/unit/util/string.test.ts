@@ -21,4 +21,13 @@ describe('Given [String] Helper methods', (): void => {
 
         expect(result).to.be.equal(cell);
     });
+
+    it('should be able to cast date', (): void => {
+
+        const cell: Date = chance.date();
+
+        const result: string = csvCellToString(cell);
+
+        expect(result).to.be.equal(cell.getTime().toString());
+    });
 });
