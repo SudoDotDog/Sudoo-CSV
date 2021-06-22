@@ -16,11 +16,14 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
     }
 
     private readonly _headers?: Array<keyof Row>;
+    private readonly _headersOverride: Partial<Row>;
 
     private constructor(headers?: Array<keyof Row>) {
 
         super();
+
         this._headers = headers;
+        this._headersOverride = {};
     }
 
     public stringify(target: CSVRecordObject<Row>): string {

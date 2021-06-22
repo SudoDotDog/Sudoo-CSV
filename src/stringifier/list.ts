@@ -4,7 +4,7 @@
  * @description List
  */
 
-import { CSVListObject, CSVRowList } from "../declare";
+import { CSVCellType, CSVListObject, CSVRowList } from "../declare";
 import { CSVCellFormatter } from "../util/cell-formatter";
 import { CSVBaseStringifier } from "./base";
 
@@ -16,11 +16,14 @@ export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSV
     }
 
     private readonly _headers: Row;
+    private readonly _headersOverride: Partial<Record<number, CSVCellType>>;
 
     private constructor(headers: Row) {
 
         super();
+
         this._headers = headers;
+        this._headersOverride = {};
     }
 
     public stringify(target: CSVListObject<Row>): string {
