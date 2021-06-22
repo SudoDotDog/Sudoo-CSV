@@ -17,7 +17,7 @@ export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSV
 
     private readonly _headers: Row;
 
-    private _headersOverride: Partial<Record<number, CSVCellType>>;
+    private namedHeaders: Partial<Record<number, CSVCellType>>;
 
     private constructor(headers: Row) {
 
@@ -25,25 +25,25 @@ export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSV
 
         this._headers = headers;
 
-        this._headersOverride = {};
+        this.namedHeaders = {};
     }
 
     public get columns(): number {
         return this._headers.length;
     }
 
-    public overrideHeaders(headers: Partial<Record<number, CSVCellType>>): this {
+    public nameHeaders(headers: Partial<Record<number, CSVCellType>>): this {
 
-        this._headersOverride = {
-            ...this._headersOverride,
+        this.namedHeaders = {
+            ...this.namedHeaders,
             ...headers,
         };
         return this;
     }
 
-    public overrideHeader(index: number, value: CSVCellType): this {
+    public nameHeader(index: number, value: CSVCellType): this {
 
-        this._headersOverride[index] = value;
+        this.namedHeaders[index] = value;
         return this;
     }
 
