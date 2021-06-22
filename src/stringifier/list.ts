@@ -16,19 +16,35 @@ export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSV
     }
 
     private readonly _headers: Row;
-    private readonly _headersOverride: Partial<Record<number, CSVCellType>>;
+
+    private _headersOverride: Partial<Record<number, CSVCellType>>;
 
     private constructor(headers: Row) {
 
         super();
 
         this._headers = headers;
+
         this._headersOverride = {};
     }
 
     public get columns(): number {
-
         return this._headers.length;
+    }
+
+    public overrideHeaders(headers: Partial<Record<number, CSVCellType>>): this {
+
+        this._headersOverride = {
+            ...this._headersOverride,
+            ...headers,
+        };
+        return this;
+    }
+
+    public overrideHeader(index: number, value: CSVCellType): this {
+
+        this._headersOverride[index] = value;
+        return this;
     }
 
     public stringify(target: CSVListObject<Row>): string {

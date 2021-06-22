@@ -16,19 +16,35 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
     }
 
     private readonly _headers?: Array<keyof Row>;
-    private readonly _headersOverride: Partial<Row>;
+
+    private _headersOverride: Partial<Row>;
 
     private constructor(headers?: Array<keyof Row>) {
 
         super();
 
         this._headers = headers;
+
         this._headersOverride = {};
     }
 
     public get columns(): number {
-
         return this._headers.length;
+    }
+
+    public overrideHeaders(headers: Partial<Row>): this {
+
+        this._headersOverride = {
+            ...this._headersOverride,
+            ...headers,
+        };
+        return this;
+    }
+
+    public overrideHeader<K extends keyof Row>(key: K, value: Row[K]): this {
+
+        this._headersOverride[key] = value;
+        return this;
     }
 
     public stringify(target: CSVRecordObject<Row>): string {
