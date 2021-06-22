@@ -10,14 +10,14 @@ import { CSVBaseStringifier } from "./base";
 
 export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> extends CSVBaseStringifier {
 
-    public static create<Row extends CSVRowObject = CSVRowObject>(headers?: string[]): CSVRecordStringifier {
+    public static create<Row extends CSVRowObject = CSVRowObject>(headers?: Array<keyof Row>): CSVRecordStringifier<Row> {
 
         return new CSVRecordStringifier<Row>(headers);
     }
 
-    private readonly _headers?: string[];
+    private readonly _headers?: Array<keyof Row>;
 
-    private constructor(headers?: string[]) {
+    private constructor(headers?: Array<keyof Row>) {
 
         super();
         this._headers = headers;
@@ -33,7 +33,7 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
             return this._emptyFile;
         }
 
-        const keys: string[] = this._headers ? this._headers : Object.keys(target[0]);
+        const keys: any[] = this._headers ? this._headers : Object.keys(target[0]);
 
         const formatter: CSVCellFormatter = this._getCellFormatter();
         const rows: string[] = target.map((row: Row) => {
