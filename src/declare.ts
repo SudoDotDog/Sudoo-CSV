@@ -8,7 +8,7 @@ export type Writeable<T> = {
     -readonly [P in keyof T]: T[P];
 };
 
-export type CSVHeaderType = string | number | symbol;
+export type CSVHeaderType = string | number;
 export type CSVCellType = string | number | boolean | symbol | Date | undefined | null;
 
 export type CSVRecordObject<Element extends CSVRowObject = CSVRowObject> = Element[];

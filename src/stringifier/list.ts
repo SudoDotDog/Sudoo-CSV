@@ -4,46 +4,46 @@
  * @description List
  */
 
-import { CSVCellType, CSVListObject, CSVRowList } from "../declare";
+import { CSVCellType, CSVHeaderType, CSVListObject, CSVRowList } from "../declare";
 import { CSVCellFormatter } from "../util/cell-formatter";
 import { CSVBaseStringifier } from "./base";
 
 export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSVBaseStringifier {
 
-    public static create<Row extends CSVRowList = CSVRowList>(headers: Row): CSVListStringifier {
+    public static create<Row extends CSVRowList = CSVRowList>(headers: CSVHeaderType[]): CSVListStringifier {
 
         return new CSVListStringifier<Row>(headers);
     }
 
-    private readonly _headers: Row;
+    private readonly _headers: CSVHeaderType[];
 
-    private namedHeaders: Partial<Record<number, CSVCellType>>;
+    private _namedHeaders: Partial<Record<CSVHeaderType, CSVCellType>>;
 
-    private constructor(headers: Row) {
+    private constructor(headers: CSVHeaderType[]) {
 
         super();
 
         this._headers = headers;
 
-        this.namedHeaders = {};
+        this._namedHeaders = {};
     }
 
     public get columns(): number {
         return this._headers.length;
     }
 
-    public nameHeaders(headers: Partial<Record<number, CSVCellType>>): this {
+    public nameHeaders(headers: Partial<Record<CSVHeaderType, CSVCellType>>): this {
 
-        this.namedHeaders = {
-            ...this.namedHeaders,
+        this._namedHeaders = {
+            ...this._namedHeaders,
             ...headers,
         };
         return this;
     }
 
-    public nameHeader(index: number, value: CSVCellType): this {
+    public nameHeader(index: CSVHeaderType, value: CSVCellType): this {
 
-        this.namedHeaders[index] = value;
+        this._namedHeaders[index] = value;
         return this;
     }
 
@@ -69,7 +69,10 @@ export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSV
             return rows.join(this._newLiner);
         }
 
-        const header: string = this._headers.map((currentHeader: any) => {
+        const header: string = this._headers.map((currentHeader: CSVHeaderType) => {
+            if (this._namedHeaders[currentHeader]) {
+                return this._namedHeaders[currentHeader];
+            }
             return formatter.format(currentHeader);
         }).join(this._delimiter);
         return [header, ...rows].join(this._newLiner);
