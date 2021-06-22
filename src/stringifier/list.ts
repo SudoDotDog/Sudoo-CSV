@@ -28,10 +28,6 @@ export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSV
         this._namedHeaders = {};
     }
 
-    public get columns(): number {
-        return this._headers.length;
-    }
-
     public nameHeaders(headers: Partial<Record<CSVHeaderType, CSVCellType>>): this {
 
         this._namedHeaders = {

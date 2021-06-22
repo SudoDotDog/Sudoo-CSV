@@ -4,7 +4,7 @@
  * @description Record
  */
 
-import { CSVRecordObject, CSVRowObject } from "../declare";
+import { CSVHeaderType, CSVRecordObject, CSVRowObject } from "../declare";
 import { CSVCellFormatter } from "../util/cell-formatter";
 import { CSVBaseStringifier } from "./base";
 
@@ -26,10 +26,6 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
         this._headers = headers;
 
         this._namedHeaders = {};
-    }
-
-    public get columns(): number {
-        return this._headers.length;
     }
 
     public nameHeaders(headers: Partial<Row>): this {
@@ -71,7 +67,10 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
             return rows.join(this._newLiner);
         }
 
-        const header: string = keys.map((currentHeader: any) => {
+        const header: string = keys.map((currentHeader: CSVHeaderType) => {
+            if (this._namedHeaders[currentHeader]) {
+                return this._namedHeaders[currentHeader];
+            }
             return formatter.format(currentHeader);
         }).join(this._delimiter);
         return [header, ...rows].join(this._newLiner);
