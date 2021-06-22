@@ -26,6 +26,11 @@ export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> exten
         this._headersOverride = {};
     }
 
+    public get columns(): number {
+
+        return this._headers.length;
+    }
+
     public stringify(target: CSVRecordObject<Row>): string {
 
         if (!Array.isArray(target)) {

@@ -26,6 +26,11 @@ export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSV
         this._headersOverride = {};
     }
 
+    public get columns(): number {
+
+        return this._headers.length;
+    }
+
     public stringify(target: CSVListObject<Row>): string {
 
         if (!Array.isArray(target)) {
