@@ -8,32 +8,35 @@ import { CSVRecordObject, CSVRowObject } from "../declare";
 import { CSVCellFormatter } from "../util/cell-formatter";
 import { CSVBaseStringifier } from "./base";
 
-export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> extends CSVBaseStringifier<CSVRecordObject<Row>> {
+export class CSVRecordStringifier<Row extends CSVRowObject = CSVRowObject> extends CSVBaseStringifier {
 
-    public static of<Row extends CSVRowObject = CSVRowObject>(target: CSVRecordObject<Row>): CSVRecordStringifier {
+    public static create<Row extends CSVRowObject = CSVRowObject>(headers?: string[]): CSVRecordStringifier {
 
-        return new CSVRecordStringifier<Row>(target);
+        return new CSVRecordStringifier<Row>(headers);
     }
 
-    private constructor(target: CSVRecordObject<Row>) {
+    private readonly _headers?: string[];
 
-        super(target);
+    private constructor(headers?: string[]) {
+
+        super();
+        this._headers = headers;
     }
 
-    public stringify(): string {
+    public stringify(target: CSVRecordObject<Row>): string {
 
-        if (!Array.isArray(this._target)) {
+        if (!Array.isArray(target)) {
             throw new Error("[Sudoo-CSV] Target is not an array");
         }
 
-        if (this._target.length <= 0) {
+        if (target.length <= 0) {
             return this._emptyFile;
         }
 
-        const keys: string[] = Object.keys(this._target[0]);
+        const keys: string[] = this._headers ? this._headers : Object.keys(target[0]);
 
         const formatter: CSVCellFormatter = this._getCellFormatter();
-        const rows: string[] = this._target.map((row: Row) => {
+        const rows: string[] = target.map((row: Row) => {
 
             return keys.map((key: string) => {
                 return formatter.format(row[key]);

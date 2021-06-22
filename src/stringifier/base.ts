@@ -9,9 +9,7 @@ import { CSVCellFormatter } from "../util/cell-formatter";
 import { FixCSVStringOptions } from "../util/fix";
 import { CSVCellToStringOptions, DefaultCSVCellToStringOptions } from "../util/string";
 
-export abstract class CSVBaseStringifier<T> {
-
-    protected readonly _target: T;
+export abstract class CSVBaseStringifier {
 
     protected _includesHeader: boolean;
 
@@ -24,9 +22,7 @@ export abstract class CSVBaseStringifier<T> {
     protected _dateCaster?: (target: Date) => string;
     protected _booleanCaster?: (target: boolean) => string;
 
-    protected constructor(target: T) {
-
-        this._target = target;
+    protected constructor() {
 
         this._includesHeader = true;
 

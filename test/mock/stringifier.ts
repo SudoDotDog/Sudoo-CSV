@@ -7,15 +7,15 @@
 
 import { CSVBaseStringifier } from "../../src";
 
-export class MockStringifier extends CSVBaseStringifier<any> {
+export class MockStringifier extends CSVBaseStringifier {
 
-    public static of(target: any): MockStringifier {
+    public static create(): MockStringifier {
 
-        return new MockStringifier(target);
+        return new MockStringifier();
     }
 
-    private constructor(target: any) {
+    private constructor() {
 
-        super(target);
+        super();
     }
 }

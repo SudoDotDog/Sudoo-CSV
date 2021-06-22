@@ -11,11 +11,12 @@ import { CSVListStringifier } from '../../../src';
 
 describe('Given {CSVListStringifier} Class', (): void => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('csv-stringifier-list');
 
     it('should be able to construct', (): void => {
 
-        const stringifier: CSVListStringifier = CSVListStringifier.of(chance.string() as any, []);
+        const stringifier: CSVListStringifier = CSVListStringifier.create([]);
 
         expect(stringifier).to.be.instanceOf(CSVListStringifier);
     });
@@ -27,9 +28,9 @@ describe('Given {CSVListStringifier} Class', (): void => {
             [2, "second"],
         ];
 
-        const stringifier: CSVListStringifier = CSVListStringifier.of(objectList, ["a", "b"]);
+        const stringifier: CSVListStringifier = CSVListStringifier.create(["a", "b"]);
 
-        const result: string = stringifier.stringify();
+        const result: string = stringifier.stringify(objectList);
 
         expect(result).to.be.equal(
             ["a,b", "1,first", "2,second"].join('\r\n')
@@ -43,10 +44,10 @@ describe('Given {CSVListStringifier} Class', (): void => {
             [2, "second"],
         ];
 
-        const stringifier: CSVListStringifier = CSVListStringifier.of(objectList, ["a", "b"]);
+        const stringifier: CSVListStringifier = CSVListStringifier.create(["a", "b"]);
         stringifier.delimitWith(':');
 
-        const result: string = stringifier.stringify();
+        const result: string = stringifier.stringify(objectList);
 
         expect(result).to.be.equal(
             ["a:b", "1:first", "2:second"].join('\r\n')
@@ -60,10 +61,10 @@ describe('Given {CSVListStringifier} Class', (): void => {
             [2, "second"],
         ];
 
-        const stringifier: CSVListStringifier = CSVListStringifier.of(objectList, ["a", "b"]);
+        const stringifier: CSVListStringifier = CSVListStringifier.create(["a", "b"]);
         stringifier.wrapWith(':');
 
-        const result: string = stringifier.stringify();
+        const result: string = stringifier.stringify(objectList);
 
         expect(result).to.be.equal(
             ["a,b", "1,first", "2,second"].join(':')

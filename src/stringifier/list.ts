@@ -8,34 +8,33 @@ import { CSVListObject, CSVRowList } from "../declare";
 import { CSVCellFormatter } from "../util/cell-formatter";
 import { CSVBaseStringifier } from "./base";
 
-export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSVBaseStringifier<CSVListObject<Row>> {
+export class CSVListStringifier<Row extends CSVRowList = CSVRowList> extends CSVBaseStringifier {
 
-    public static of<Row extends CSVRowList = CSVRowList>(target: CSVListObject<Row>, headers: Row): CSVListStringifier {
+    public static create<Row extends CSVRowList = CSVRowList>(headers: Row): CSVListStringifier {
 
-        return new CSVListStringifier<Row>(target, headers);
+        return new CSVListStringifier<Row>(headers);
     }
 
     private readonly _headers: Row;
 
-    private constructor(target: CSVListObject<Row>, headers: Row) {
+    private constructor(headers: Row) {
 
-        super(target);
-
+        super();
         this._headers = headers;
     }
 
-    public stringify(): string {
+    public stringify(target: CSVListObject<Row>): string {
 
-        if (!Array.isArray(this._target)) {
+        if (!Array.isArray(target)) {
             throw new Error("[Sudoo-CSV] Target is not an array");
         }
 
-        if (this._target.length <= 0) {
+        if (target.length <= 0) {
             return this._emptyFile;
         }
 
         const formatter: CSVCellFormatter = this._getCellFormatter();
-        const rows: string[] = this._target.map((row: Row) => {
+        const rows: string[] = target.map((row: Row) => {
 
             return row.map((cell: Row[number]) => {
                 return formatter.format(cell);

@@ -43,7 +43,7 @@ describe('Given (Complex) Integrate Scenario', (): void => {
             price: 5000,
         }];
 
-        const stringifier: CSVRecordStringifier = CSVRecordStringifier.of(example);
+        const stringifier: CSVRecordStringifier = CSVRecordStringifier.create();
 
         stringifier.setIncludesHeader(false);
         stringifier.setNullReplacement('NULL');
@@ -51,7 +51,7 @@ describe('Given (Complex) Integrate Scenario', (): void => {
             return `${target.getUTCFullYear()}-${target.getUTCMonth()}-${target.getUTCDate()} ${target.getUTCHours()}:${target.getUTCMinutes()}:${target.getUTCSeconds()}`;
         });
 
-        const csv: string = stringifier.stringify();
+        const csv: string = stringifier.stringify(example);
 
         expect(csv).to.be.equal(
             [
