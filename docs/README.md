@@ -1,6 +1,6 @@
 # Sudoo-CSV
 
-[![Build Status](https://travis-ci.com/SudoDotDog/Sudoo-CSV.svg?branch=master)](https://travis-ci.com/SudoDotDog/Sudoo-CSV)
+[![Continuous Integration](https://github.com/SudoDotDog/Sudoo-CSV/actions/workflows/ci.yml/badge.svg)](https://github.com/SudoDotDog/Sudoo-CSV/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/SudoDotDog/Sudoo-CSV/branch/master/graph/badge.svg)](https://codecov.io/gh/SudoDotDog/Sudoo-CSV)
 [![npm version](https://badge.fury.io/js/%40sudoo%2Fcsv.svg)](https://www.npmjs.com/package/@sudoo/csv)
 [![downloads](https://img.shields.io/npm/dm/@sudoo/csv.svg)](https://www.npmjs.com/package/@sudoo/csv)
