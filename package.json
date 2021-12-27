@@ -15,7 +15,7 @@
 	"devDependencies": {
 		"@sudoo/build-utils": "^1.0.0",
 		"@sudoo/license": "^1.1.0",
-		"@sudoo/triforce": "^2.16.1"
+		"@sudoo/triforce": "^2.16.2"
 	},
 	"nyc": {
 		"extension": [
