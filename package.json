@@ -13,7 +13,7 @@
 	},
 	"homepage": "https://github.com/SudoDotDog/Sudoo-CSV#readme",
 	"devDependencies": {
-		"@sudoo/triforce": "^3.7.0"
+		"@sudoo/triforce": "^3.9.0"
 	},
 	"nyc": {
 		"extension": [
